@@ -13,6 +13,7 @@ namespace FSXBroadcast
     class FSXConnect
     {
         SimConnect simconnect = null;
+        uint seq_id = 0; 
 
         public const int WM_USER_SIMCONNECT = 0x0402;
 
@@ -140,7 +141,7 @@ namespace FSXBroadcast
             PositionData s1 = (PositionData)data.dwData[0];
             double heading = s1.heading * 180.0 / Math.PI;
             double trueheading = s1.trueheading * 180.0 / Math.PI;
-            string message = string.Format("{0:f10}|{1:f10}|{2:f0}|{3:f0}|{4:f0}|{5:f0}|{6:f0}", s1.latitude, s1.longitude, s1.altitude, s1.airspeed, s1.groundspeed, heading, trueheading);
+            string message = string.Format("{7}|{0:f10}|{1:f10}|{2:f0}|{3:f0}|{4:f0}|{5:f0}|{6:f0}", s1.latitude, s1.longitude, s1.altitude, s1.airspeed, s1.groundspeed, heading, trueheading, seq_id++);
             Console.WriteLine(message);
             // TODO: add timestamp
             if (FSXDataReceived != null)
